@@ -1,0 +1,30 @@
+name: Assign label to open PR
+on:
+  pull_request:
+    - opened
+
+jobs:
+  assign-label-feat:
+    runs-on: ubuntu-latest
+    uses: actions/github-script@v6
+    steps:
+      - name: Assign to feat PR
+        if: startsWith(github.event.pull_request.title, 'feat')
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['type: feature']
+            })
+      - name: Assign to fix PR
+        if: startsWith(github.event.pull_request.title, 'fix')
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['type: fix']
+            })
