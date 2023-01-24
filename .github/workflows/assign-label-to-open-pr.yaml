@@ -5,10 +5,10 @@ on:
       - opened
 
 jobs:
-  assign-label-feat:
+  assign-label:
     runs-on: ubuntu-latest
-    uses: actions/github-script@v6
     steps:
+      - uses: actions/github-script@v6
       - name: Assign to feat PR
         if: startsWith(github.event.pull_request.title, 'feat')
         with:
