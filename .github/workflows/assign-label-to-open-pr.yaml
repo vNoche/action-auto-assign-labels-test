@@ -1,7 +1,8 @@
 name: Assign label to open PR
 on:
   pull_request:
-    - opened
+    types:
+      - opened
 
 jobs:
   assign-label-feat:
