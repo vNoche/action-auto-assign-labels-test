@@ -4,14 +4,15 @@ on:
     types: [opened, edited]
 
 jobs:
-  runs-on: ubuntu-latest
-
-  env:
-    PR_BODY: ${{ github.event.pull_request.body }}
-
   assign-labels:
+    runs-on: ubuntu-latest
+
+    env:
+      PR_BODY: ${{ github.event.pull_request.body }}
+
     permissions:
       pull-requests: write
+
     steps:
       - name: Assign label - Feat
         uses: actions/github-script@v6
