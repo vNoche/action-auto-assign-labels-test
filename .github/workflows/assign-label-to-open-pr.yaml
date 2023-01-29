@@ -14,6 +14,16 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Remove all labels
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.removeAllLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+
       - name: Assign label - Feat
         uses: actions/github-script@v6
         if: startsWith(github.event.pull_request.title, 'feat')
@@ -25,6 +35,7 @@ jobs:
               repo: context.repo.repo,
               labels: ['type: feature']
             })
+
       - name: Assign label - Fix
         uses: actions/github-script@v6
         if: startsWith(github.event.pull_request.title, 'fix')
@@ -36,6 +47,7 @@ jobs:
               repo: context.repo.repo,
               labels: ['type: fix']
             })
+
       - name: Assign label - JIRA1 task
         uses: actions/github-script@v6
         if: contains(env.PR_BODY, '# JIRA1-')
@@ -47,6 +59,7 @@ jobs:
               repo: context.repo.repo,
               labels: ['task: JIRA1']
             })
+
       - name: Assign label - JIRA2 task
         uses: actions/github-script@v6
         if: contains(env.PR_BODY, '# JIRA2-')
