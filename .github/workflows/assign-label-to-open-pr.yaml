@@ -1,16 +1,15 @@
 name: Assign label to open PR
 on:
   pull_request:
-    types:
-      - opened
+    types: [opened, edited]
 
 jobs:
-  assign-label:
+  assign-type-label:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     steps:
-      - name: Assign to feat PR
+      - name: Assign label - Feat
         uses: actions/github-script@v6
         if: startsWith(github.event.pull_request.title, 'feat')
         with:
@@ -21,7 +20,7 @@ jobs:
               repo: context.repo.repo,
               labels: ['type: feature']
             })
-      - name: Assign to fix PR
+      - name: Assign label - Fix
         uses: actions/github-script@v6
         if: startsWith(github.event.pull_request.title, 'fix')
         with:
@@ -32,3 +31,38 @@ jobs:
               repo: context.repo.repo,
               labels: ['type: fix']
             })
+
+    assign-task-label:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Read from PR comment body
+          permissions:
+            pull-requests: read
+          env:
+            PR_BODY: ${{ github.event.pull_request.body }}
+        - name: Assign label - JIRA1 task
+          uses: actions/github-script@v6
+          permissions:
+            pull-requests: write
+          if: contains($PR_BODY, "# JIRA1-")
+          with:
+            script: |
+              github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['task: JIRA1']
+              })
+        - name: Assign label - JIRA2 task
+          uses: actions/github-script@v6
+          permissions:
+            pull-requests: write
+          if: contains($PR_BODY, "# JIRA2-")
+          with:
+            script: |
+              github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['task: JIRA2']
+              })
