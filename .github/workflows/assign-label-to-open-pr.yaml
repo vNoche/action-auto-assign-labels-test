@@ -38,7 +38,7 @@ jobs:
             })
       - name: Assign label - JIRA1 task
         uses: actions/github-script@v6
-        if: contains($PR_BODY, "# JIRA1-")
+        if: contains("$PR_BODY", "# JIRA1-")
         with:
           script: |
             github.rest.issues.addLabels({
@@ -49,7 +49,7 @@ jobs:
             })
       - name: Assign label - JIRA2 task
         uses: actions/github-script@v6
-        if: contains($PR_BODY, "# JIRA2-")
+        if: contains("$PR_BODY", "# JIRA2-")
         with:
           script: |
             github.rest.issues.addLabels({
