@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      PR_TITLE: ${{ github.event.pull_request.title }}
       PR_BODY: ${{ github.event.pull_request.body }}
 
     permissions:
@@ -26,7 +27,6 @@ jobs:
 
       - name: Assign labels
         uses: actions/github-script@v6
-        if: startsWith(github.event.pull_request.title, 'feat')
         with:
           script: |
             github.rest.issues.addLabels({
@@ -36,11 +36,11 @@ jobs:
               labels: (() => {
                 const theLabels = [];
 
-                if (github.event.pull_request.title.starsWith('feat')) {
+                if (env.PR_TITLE.startsWith('feat')) {
                   theLabels.push('type: feat');
                 }
 
-                if (github.event.pull_request.title.starsWith('fix')) {
+                if (env.PR_TITLE.startsWith('fix')) {
                   theLabels.push('type: fix');
                 }
 
