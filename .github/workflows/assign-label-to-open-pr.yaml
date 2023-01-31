@@ -36,19 +36,19 @@ jobs:
               labels: (() => {
                 const theLabels = [];
 
-                if (env.PR_TITLE.startsWith('feat')) {
+                if (process.env.PR_TITLE.startsWith('feat')) {
                   theLabels.push('type: feat');
                 }
 
-                if (env.PR_TITLE.startsWith('fix')) {
+                if (process.env.PR_TITLE.startsWith('fix')) {
                   theLabels.push('type: fix');
                 }
 
-                if (env.PR_BODY.includes('# JIRA1-')) {
+                if (process.env.PR_BODY.includes('# JIRA1-')) {
                   theLabels.push('task: JIRA1');
                 }
 
-                if (env.PR_BODY.includes('# JIRA2-')) {
+                if (process.env.PR_BODY.includes('# JIRA2-')) {
                   theLabels.push('task: JIRA2');
                 }
 
