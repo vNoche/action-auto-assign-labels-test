@@ -36,11 +36,11 @@ jobs:
               labels: (() => {
                 const theLabels = [];
 
-                if (github.event.pull_request.title.starsWith('feat') {
+                if (github.event.pull_request.title.starsWith('feat')) {
                   theLabels.push('type: feat');
                 }
 
-                if (github.event.pull_request.title.starsWith('fix') {
+                if (github.event.pull_request.title.starsWith('fix')) {
                   theLabels.push('type: fix');
                 }
 
