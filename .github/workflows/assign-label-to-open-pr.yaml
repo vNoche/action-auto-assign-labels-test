@@ -24,7 +24,7 @@ jobs:
               repo: context.repo.repo,
             })
 
-      - name: Assign label - Feat
+      - name: Assign labels
         uses: actions/github-script@v6
         if: startsWith(github.event.pull_request.title, 'feat')
         with:
@@ -33,41 +33,26 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['type: feature']
+              labels: (() => {
+                const theLabels = [];
+
+                if (github.event.pull_request.title.starsWith('feat') {
+                  theLabels.push('type: feat');
+                }
+
+                if (github.event.pull_request.title.starsWith('fix') {
+                  theLabels.push('type: fix');
+                }
+
+                if (env.PR_BODY.includes('# JIRA1-')) {
+                  theLabels.push('task: JIRA1');
+                }
+
+                if (env.PR_BODY.includes('# JIRA2-')) {
+                  theLabels.push('task: JIRA2');
+                }
+
+                return theLabels;
+              })()
             })
 
-      - name: Assign label - Fix
-        uses: actions/github-script@v6
-        if: startsWith(github.event.pull_request.title, 'fix')
-        with:
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['type: fix']
-            })
-
-      - name: Assign label - JIRA1 task
-        uses: actions/github-script@v6
-        if: contains(env.PR_BODY, '# JIRA1-')
-        with:
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['task: JIRA1']
-            })
-
-      - name: Assign label - JIRA2 task
-        uses: actions/github-script@v6
-        if: contains(env.PR_BODY, '# JIRA2-')
-        with:
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['task: JIRA2']
-            })
