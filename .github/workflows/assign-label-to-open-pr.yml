@@ -25,7 +25,7 @@ jobs:
               repo: context.repo.repo,
             })
 
-      - name: Assign labels
+      # - name: Assign labels
         uses: actions/github-script@v6
         with:
           script: |
@@ -54,4 +54,15 @@ jobs:
 
                 return theLabels;
               })()
+            })
+
+      - name: Update PR body
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.update({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "HAHAHAHAH PLEASE WORK"
             })
