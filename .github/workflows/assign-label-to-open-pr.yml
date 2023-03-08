@@ -73,11 +73,13 @@ jobs:
         run: echo "TEST_TIME=$TIME" >> $GITHUB_ENV
       - name: Update PR body
         uses: actions/github-script@v6
+        env:
+          TESTTIME2: ${{env.TEST_TIME}}
         with:
           script: |
             github.rest.issues.update({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: env.TEST_TIME
+              body: process.env.TESTTIME2
             })
