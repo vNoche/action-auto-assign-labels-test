@@ -56,6 +56,21 @@ jobs:
       #         })()
       #       })
 
+      - name: Get current time
+        uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD-HH
+          utcOffset: "+08:00"
+
+      - name: Use current time
+        env:
+          TIME: "${{ steps.current-time.outputs.time }}"
+          R_TIME: "${{ steps.current-time.outputs.readableTime }}"
+          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+          YEAR: "${{ steps.current-time.outputs.year }}"
+          DAY: "${{ steps.current-time.outputs.day }}"
+        run: echo "TEST_TIME=$TIME" >> $GITHUB_ENV
       - name: Update PR body
         uses: actions/github-script@v6
         with:
@@ -64,5 +79,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "HAHAHAHAH PLEASE WORK"
+              body: env.TEST_TIME
             })
