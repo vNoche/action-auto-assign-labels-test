@@ -26,35 +26,35 @@ jobs:
             })
 
       # - name: Assign labels
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: (() => {
-                const theLabels = [];
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #       github.rest.issues.addLabels({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         labels: (() => {
+      #           const theLabels = [];
 
-                if (process.env.PR_TITLE.startsWith('feat')) {
-                  theLabels.push('type: feat');
-                }
+      #           if (process.env.PR_TITLE.startsWith('feat')) {
+      #             theLabels.push('type: feat');
+      #           }
 
-                if (process.env.PR_TITLE.startsWith('fix')) {
-                  theLabels.push('type: fix');
-                }
+      #           if (process.env.PR_TITLE.startsWith('fix')) {
+      #             theLabels.push('type: fix');
+      #           }
 
-                if (process.env.PR_BODY.includes('# JIRA1-')) {
-                  theLabels.push('task: JIRA1');
-                }
+      #           if (process.env.PR_BODY.includes('# JIRA1-')) {
+      #             theLabels.push('task: JIRA1');
+      #           }
 
-                if (process.env.PR_BODY.includes('# JIRA2-')) {
-                  theLabels.push('task: JIRA2');
-                }
+      #           if (process.env.PR_BODY.includes('# JIRA2-')) {
+      #             theLabels.push('task: JIRA2');
+      #           }
 
-                return theLabels;
-              })()
-            })
+      #           return theLabels;
+      #         })()
+      #       })
 
       - name: Update PR body
         uses: actions/github-script@v6
