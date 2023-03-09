@@ -1,12 +1,12 @@
 name: Generate Pre Release logs
 on:
-  push:
-    # types: [opened, edited]
+  pull_request:
+    types: [opened, edited]
     branches:
       - "release/**"
 
-  # permissions:
-  #   pull-requests: write
+  permissions:
+    pull-requests: write
 
 jobs:
   watch-changes-in-release-branch:
