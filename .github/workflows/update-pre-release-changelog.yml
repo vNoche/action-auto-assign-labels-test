@@ -5,8 +5,8 @@ on:
     branches:
       - "release/**"
 
-  permissions:
-    pull-requests: write
+  # permissions:
+  #   pull-requests: write
 
 jobs:
   watch-changes-in-release-branch:
