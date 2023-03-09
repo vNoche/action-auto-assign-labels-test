@@ -1,8 +1,8 @@
-name: Creates and Updates PR
+name: Generate Pre Release logs
 on:
   push:
     branches:
-      - "release/**"
+      - "release/*"
 jobs:
   pull-request:
     runs-on: ubuntu-latest
