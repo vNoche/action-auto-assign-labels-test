@@ -2,8 +2,8 @@ name: Generate Pre Release logs
 on:
   pull_request:
     types: [opened, edited]
-
     branches:
+      - "nextjs-prod"
       - "release/**"
 
 jobs:
