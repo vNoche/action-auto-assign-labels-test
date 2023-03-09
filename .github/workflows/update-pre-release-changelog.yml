@@ -4,8 +4,7 @@ on:
     types: [opened, edited]
 
     branches:
-      - nextjs
-      - nextjs-prod
+      - main
       - release/*
 
 jobs:
