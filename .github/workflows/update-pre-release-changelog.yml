@@ -4,8 +4,7 @@ on:
     types: [opened, edited]
 
     branches:
-      - main
-      - release/*
+      - nextjs-prod
 
 jobs:
   watch-changes-in-release-branch:
