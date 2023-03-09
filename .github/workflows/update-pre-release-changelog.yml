@@ -5,12 +5,12 @@ on:
     branches:
       - "release/**"
 
-  permissions:
-    pull-requests: write
-
 jobs:
   watch-changes-in-release-branch:
     runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
 
     steps:
       - name: Get current time
