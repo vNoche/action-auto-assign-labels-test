@@ -1,8 +1,7 @@
 name: Generate Pre Release logs
 on:
-  push:
-    branches:
-      - "release/*"
+  pull_request:
+    types: [opened, edited]
 
 jobs:
   watch-changes-in-release-branch:
