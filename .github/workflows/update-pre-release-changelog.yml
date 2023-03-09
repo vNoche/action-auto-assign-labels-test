@@ -2,7 +2,7 @@ name: 'Generate Release logs',
 on:
   push:
     branches:
-      - 'release/*'
+      - main
 jobs:
   watch-changes-in-release-branch:
     runs-on: ubuntu-latest
