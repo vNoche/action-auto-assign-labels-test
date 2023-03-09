@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened, edited]
     branches:
-      - main
+      - "nextjs-prod"
       - "release/**"
 
 jobs:
