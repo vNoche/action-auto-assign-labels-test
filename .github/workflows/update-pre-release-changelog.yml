@@ -2,10 +2,10 @@ name: Generate Pre Release logs
 on:
   pull_request:
     types: [opened, edited]
-    branches:
-      - nextjs
-      - nextjs-prod
-      - release/*
+    
+   branches:
+      # branches in the case of PR specifies target/base branch
+      - 'nextjs-prod'
 
 jobs:
   watch-changes-in-release-branch:
