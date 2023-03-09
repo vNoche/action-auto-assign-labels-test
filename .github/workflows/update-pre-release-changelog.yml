@@ -3,7 +3,8 @@ on:
   pull_request:
     types: [opened, edited]
     branches:
-      - "release/*"
+      - main
+      - "release/**"
 
 jobs:
   watch-changes-in-release-branch:
