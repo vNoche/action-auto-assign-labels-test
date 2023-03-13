@@ -1,6 +1,6 @@
 name: Generate Pre Release logs
 on:
-  pull_request:
+  push:
     types: [opened, edited]
 
     branches:
@@ -32,12 +32,15 @@ jobs:
         run: echo "TEST_TIME=$TIME" >> $GITHUB_ENV
 
       - name: Update PR body
-        uses: actions/github-script@v6
+        # uses: actions/github-script@v6
+        uses: AsasInnab/pr-body-action@v1
         with:
-          script: |
-            github.rest.issues.update({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: process.env.TEST_TIME
-            })
+          # script: |
+          #   github.rest.issues.update({
+          #     issue_number: context.issue.number,
+          #     owner: context.repo.owner,
+          #     repo: context.repo.repo,
+          #     body: process.env.TEST_TIME
+          #   })
+          body: "This is my new PR body :)"
+	        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
