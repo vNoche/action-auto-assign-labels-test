@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened, edited, synchronize]
     branches:
-      - "nextjs-prod"
+      - nextjs-prod
 
 jobs:
   watch-changes-in-release-branch:
