@@ -1,20 +1,5 @@
-move like jagger
-
-OLNKADAKS
-`
-
-BOMM
-BOOOASDGKL
-asbkdsadas
-asgkdas
-asd
-
-sadsadsa
-sad
-sad
-sadsa
+asdasdsa
+asdas
 dsadsa
-
-adas
-dsad
-sa
+dsadas
+d
