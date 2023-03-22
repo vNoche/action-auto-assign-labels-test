@@ -2,11 +2,10 @@ name: Generate Pre Release logs
 on:
   pull_request:
     types: [opened, edited, synchronize]
-    branches:
-      - "nextjs-prod"
 
 jobs:
   watch-changes-in-release-branch:
+    if: github.event_name == 'pull_request' && startsWith(github.base_ref, 'release/')
     runs-on: ubuntu-latest
 
     permissions:
