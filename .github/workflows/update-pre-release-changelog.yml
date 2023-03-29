@@ -11,6 +11,11 @@ jobs:
       pull-requests: write
 
     steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_SECRET }}
+          fetch-depth: 0 # Do not change, fetches all the commits to pass to the starting ref.
+
       - name: Update Unreleased Changelog
         run:
           cd client && yarn install && node project_utils/generateChangelog.js
