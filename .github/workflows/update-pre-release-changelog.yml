@@ -2,6 +2,9 @@ name: Generate Pre Release logs
 on:
   pull_request:
     types: [synchronize]
+    branches:
+      # branches in the case of PR specifies target/base branch
+      - "nextjs-prod"
 
 jobs:
   watch-changes-in-release-branch:
@@ -11,10 +14,16 @@ jobs:
       pull-requests: write
 
     steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_SECRET }}
+          fetch-depth: 0 # Do not change, fetches all the commits to pass to the starting ref.
+
       - name: Update Unreleased Changelog
         run:
           cd client && yarn install && node project_utils/generateChangelog.js
           && node project_utils/taggedChangelog.js --tag=unreleased
+
       - name: Generate Comment String from Markdown
         id: get-comment-content
         uses: juliangruber/read-file-action@v1
