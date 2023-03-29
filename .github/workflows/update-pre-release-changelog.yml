@@ -20,6 +20,7 @@ jobs:
         run:
           cd client && yarn install && node project_utils/generateChangelog.js
           && node project_utils/taggedChangelog.js --tag=unreleased
+
       - name: Generate Comment String from Markdown
         id: get-comment-content
         uses: juliangruber/read-file-action@v1
