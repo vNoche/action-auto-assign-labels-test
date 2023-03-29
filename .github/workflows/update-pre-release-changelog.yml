@@ -1,9 +1,10 @@
 name: Generate Pre Release logs
 on:
   pull_request:
-    types: [opened, edited]
-    # branches:
-    #   - "release/**"
+    types: [synchronize]
+    branches:
+      # branches in the case of PR specifies target/base branch
+      - "nextjs-prod"
 
 jobs:
   watch-changes-in-release-branch:
@@ -13,29 +14,31 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Get current time
-        uses: josStorer/get-current-time@v2
-        id: current-time
+      - uses: actions/checkout@v2
         with:
-          format: YYYYMMDD-HH
-          utcOffset: "+08:00"
+          token: ${{ secrets.BOT_SECRET }}
+          fetch-depth: 0 # Do not change, fetches all the commits to pass to the starting ref.
 
-      - name: Use current time
-        env:
-          TIME: "${{ steps.current-time.outputs.time }}"
-          R_TIME: "${{ steps.current-time.outputs.readableTime }}"
-          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-          YEAR: "${{ steps.current-time.outputs.year }}"
-          DAY: "${{ steps.current-time.outputs.day }}"
-        run: echo "TEST_TIME=$TIME" >> $GITHUB_ENV
+      - name: Update Unreleased Changelog
+        run:
+          cd client && yarn install && node project_utils/generateChangelog.js
+          && node project_utils/taggedChangelog.js --tag=unreleased
+
+      - name: Generate Comment String from Markdown
+        id: get-comment-content
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./client/project_utils/TAGGEDCHANGELOG.md
 
       - name: Update PR body
         uses: actions/github-script@v6
+        env:
+          CHANGELOG_TXT: ${{ steps.get-comment-content.outputs.content }}
         with:
           script: |
             github.rest.issues.update({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: process.env.TEST_TIME
+              body: process.env.CHANGELOG_TXT
             })
