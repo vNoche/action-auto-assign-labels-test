@@ -143,8 +143,8 @@
     "string-width": "4.2.3",
     "wrap-ansi": "7.0.0",
     "ws": "7.5.10",
-    "braces": "3.0.2",
-    "jest-enzyme/micromatch/braces": "3.0.2",
-    "micromatch/braces": "3.0.2"
+    "braces": "3.0.3",
+    "jest-enzyme/micromatch/braces": "3.0.3",
+    "micromatch/braces": "3.0.3"
   }
 }
