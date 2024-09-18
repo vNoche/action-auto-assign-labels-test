@@ -47,7 +47,7 @@
     "html-react-parser": "5.1.10",
     "http-proxy-middleware": "3.0.0",
     "inobounce": "0.2.1",
-    "next": "14.2.5",
+    "next": "14.2.10",
     "next-i18next": "7.0.1",
     "plyr": "3.7.8",
     "pm2": "5.4.0",
