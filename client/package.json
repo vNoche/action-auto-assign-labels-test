@@ -45,7 +45,7 @@
     "express-winston": "4.2.0",
     "global": "4.4.0",
     "html-react-parser": "5.1.10",
-    "http-proxy-middleware": "3.0.0",
+    "http-proxy-middleware": "3.0.3",
     "inobounce": "0.2.1",
     "next": "14.2.5",
     "next-i18next": "7.0.1",
